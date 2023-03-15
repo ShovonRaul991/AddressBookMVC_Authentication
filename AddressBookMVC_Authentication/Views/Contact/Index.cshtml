@@ -1,0 +1,59 @@
+﻿@using AddressBookMVC_Authentication.Models;
+@using AddressBookMVC_Authetication.Data
+
+@model Contact
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@inject AddressBookDbContextMVC _context;
+@{
+    ViewData["Title"] = "Home Page";
+    var data = ViewBag.context as AddressBookDbContextMVC;
+}
+
+<div class="contact-list">
+    <div class="contact-list-header">
+        <h3>Contacts</h3>
+    </div>
+    <div class="contact-list-items" id="ContactListItems">
+
+
+        @foreach (var contact in @data.AddressesMVC.ToList())
+        {
+
+            if (Model != null)
+            {
+                if (contact.Id == Model.Id)
+                {
+                    <a asp-controller="Contact" asp-action="Display" asp-route-id=@contact.Id>
+                        <div class="contact-list-item" style="background-color: #CEE7F2">
+                            <p style="display:none">@contact.Id</p>
+                            <p class="contact-name">@contact.Name</p>
+                            <p class="contact-email">@contact.Email</p>
+                            <p class="contact-mobile">@contact.MobileNumber</p>
+                        </div>
+                    </a>
+                    continue;
+                }
+
+            }
+
+            <a asp-controller="Contact" asp-action="Display" asp-route-id=@contact.Id>
+                <div class="contact-list-item">
+                    <p style="display:none">@contact.Id</p>
+                    <p class="contact-name">@contact.Name</p>
+                    <p class="contact-email">@contact.Email</p>
+                    <p class="contact-mobile">@contact.MobileNumber</p>
+                </div>
+            </a>
+        }
+
+    </div>
+</div>
+
+
+
+

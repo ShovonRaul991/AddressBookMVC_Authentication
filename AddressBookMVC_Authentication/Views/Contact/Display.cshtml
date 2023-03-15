@@ -1,0 +1,74 @@
+﻿@using AddressBookMVC_Authentication.Models;
+@using AddressBookMVC_Authetication.Data
+@model Contact
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject AddressBookDbContextMVC _context;
+@{
+    ViewData["Title"] = "Home Page";
+    var data = ViewBag.context as AddressBookDbContextMVC;
+}
+
+<div class="contact-list">
+    <div class="contact-list-header">
+        <h3>Contacts</h3>
+    </div>
+    <div class="contact-list-items" id="ContactListItems">
+
+
+        @foreach (var contact in @data.AddressesMVC.ToList())
+        {
+
+            if (Model != null)
+            {
+                if (contact.Id == Model.Id)
+                {
+                    <a asp-controller="Contact" asp-action="Display" asp-route-id=@contact.Id>
+                        <div class="contact-list-item" style="background-color: #CEE7F2">
+                            <p style="display:none">@contact.Id</p>
+                            <p class="contact-name">@contact.Name</p>
+                            <p class="contact-email">@contact.Email</p>
+                            <p class="contact-mobile">@contact.MobileNumber</p>
+                        </div>
+                    </a>
+                    continue;
+                }
+
+            }
+
+            <a asp-controller="Contact" asp-action="Display" asp-route-id=@contact.Id>
+                <div class="contact-list-item">
+                    <p style="display:none">@contact.Id</p>
+                    <p class="contact-name">@contact.Name</p>
+                    <p class="contact-email">@contact.Email</p>
+                    <p class="contact-mobile">@contact.MobileNumber</p>
+                </div>
+            </a>
+        }
+
+    </div>
+</div>
+
+<div class="view-details" id="ViewDetails">
+    <div class="view-details-header">
+        <a class="icon-edit" asp-controller="Contact" asp-action="Edit" asp-route-id=@Model.Id><img src="~/images/edit1.jpg" />Edit</a>
+        <a class="icon-delete" asp-controller="Contact" asp-action="Delete" asp-route-id=@Model.Id><img src="~/images/delete2.png" />Delete</a>
+    </div>
+
+    <div class="view-details-body" id="ViewDetailsBody">
+
+        <p id="PersonName" class="Person-Name">@Model.Name</p>
+        <div id='DetailEmail' class="detail-email"><Span>Email: </Span>@Model.Email</div>
+        <div id="DetailMobile" class="detail-mobile"><Span>Mobile: </Span>@Model.MobileNumber</div>
+        <div id="DetailLandline" class="detail-landline"><Span>Landline: </Span>@Model.LandLineNumber</div>
+        <div id="DetailSite" class="detail-site"><Span>Website: </Span>@Model.Website</div>
+
+        <div id="DetailAddress" class="detail-address"><span id="DetailAddressValue" class="detail-address-value"><Span>Address: </Span>@Model.AddressDetails</span></div>
+
+    </div>
+</div>
+
+
+

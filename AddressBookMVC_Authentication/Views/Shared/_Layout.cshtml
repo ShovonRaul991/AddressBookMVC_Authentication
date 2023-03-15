@@ -1,0 +1,43 @@
+﻿@using AddressBookMVC_Authentication.Models;
+@using AddressBookMVC_Authetication.Data
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Address Book</title>
+    <link href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
+
+</head>
+
+<body>
+    <header class="page-header">
+        <h1 class="page-title">Address Book</h1>
+        <nav class="page-navigation">
+            <ul class="page-nav-items">
+                <li>
+                    <a asp-controller="Contact" asp-action="Index">Home</a>
+                </li>
+                <li><a asp-controller="Contact" asp-action="Add">Add</a></li>
+                <partial name="_LoginPartial" />
+            </ul>
+            <img src="~/images/blog-icon.png" alt="Blog" />
+            
+        </nav>
+    </header>
+    <div class="page-form">
+        @if (IsSectionDefined("scripts"))
+        {
+            RenderSection("scripts");
+        }
+            @RenderBody()
+
+    </div>
+
+</body>
+</html>
